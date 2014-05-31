@@ -1,0 +1,1 @@
+g++ -o $1 $1.c smpl.c bmeans.c rand.c -lm
