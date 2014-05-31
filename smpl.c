@@ -139,6 +139,7 @@ static void put_elm(int i)
 void schedule(int ev,real te,int tkn)
     {
       int i;
+      //printf("[SCH]clock : %f,te : %f\n", clock, te);
       if (te<0.0) then error(4,NULL); /* negative event time */
       i=get_elm(); l2[i]=tkn; l3[i]=ev; l4[i]=0.0; l5[i]=clock+te;
       enlist(&evl,i);
@@ -149,8 +150,10 @@ void schedule(int ev,real te,int tkn)
 void cause(int *ev,int *tkn)
     {
       int i;
+      
       if (evl==0) then error(5,NULL);       /* empty event list  */
       i=evl; *tkn=token=l2[i]; *ev=event=l3[i]; clock=l5[i];
+      //printf("[CAU]clock : %f\n", clock);
       evl=l1[i]; put_elm(i);  /* delink element & return to pool */
       if (tr) then msg(2,*tkn,"",event,0);
    /* if (mr && (tr!=3)) then mtr(tr,0); */
